@@ -1,4 +1,4 @@
-package de.dalai.checker.storage;
+package de.dalai.clir.storage;
 
 import java.io.File;
 import java.nio.file.Files;

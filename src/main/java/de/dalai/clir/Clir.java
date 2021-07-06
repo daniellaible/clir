@@ -1,6 +1,6 @@
-package de.dalai.checker;
+package de.dalai.clir;
 
-import de.dalai.checker.storage.Storage;
+import de.dalai.clir.storage.Storage;
 import java.io.File;
 
 public class Clir {
@@ -16,5 +16,4 @@ public class Clir {
     Storage storage = new Storage();
     clirDir = storage.getClirFolder();
   }
-
 }
