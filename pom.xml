@@ -35,7 +35,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>de.dalai.checker.Checker</mainClass>
+              <mainClass>de.dalai.checker.Clir</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

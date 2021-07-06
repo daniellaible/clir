@@ -1,2 +1,2 @@
 Manifest-Version: 1.0
-Main-Class: de.dalai.checker.Checker
+Main-Class: de.dalai.checker.Clir
