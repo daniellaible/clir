@@ -1,4 +1,4 @@
-package de.dalai.clir.storage;
+package de.dalai.clir.task.entity;
 
 import com.google.gson.Gson;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.Data;
 public class Task {
 
   private String uuid;
-  private int counter;
   private String creationDate;
   private String completionDate;
   private String text;
