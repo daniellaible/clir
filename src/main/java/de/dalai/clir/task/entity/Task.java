@@ -12,7 +12,7 @@ public class Task {
   private String creationDate;
   private String completionDate;
   private String text;
-  private boolean isfinished;
+  private boolean finished;
 
   public String toJson(){
     Gson gson = new Gson();

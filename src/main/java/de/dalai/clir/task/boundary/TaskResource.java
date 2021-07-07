@@ -11,7 +11,7 @@ public class TaskResource {
     Task task = Task.builder()
         .creationDate(TimeTool.getLocalDateTime())
         .text(text)
-        .isfinished(false)
+        .finished(false)
         .uuid(UuidCreator.createUuid())
         .build();
 
