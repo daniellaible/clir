@@ -10,7 +10,7 @@ public class TaskResource {
   public void newTask(String collection, String text){
     Task task = Task.builder()
         .creationDate(TimeTool.getLocalDateTime())
-        .text(text)
+        .description(text)
         .finished(false)
         .uuid(UuidCreator.createUuid())
         .build();

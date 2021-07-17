@@ -19,7 +19,7 @@ public class TaskTest {
     this.tut = Task.builder()
         .creationDate(TimeTool.getLocalDateTime())
         .finished(false)
-        .text("Test")
+        .description("Test")
         .uuid(UuidCreator.createUuid())
         .build();
   }
@@ -28,5 +28,12 @@ public class TaskTest {
   public void testToJson() {
     String json = this.tut.toJson();
     assertTrue(json.startsWith("{\"uuid\":"));
+  }
+
+  @Test
+  public void testFromJson(){
+    String json = this.tut.toJson();
+    Task result = this.tut.fromJson(json);
+    assertEquals("Test", result.getDescription());
   }
 }

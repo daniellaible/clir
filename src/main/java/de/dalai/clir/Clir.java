@@ -1,11 +1,11 @@
 package de.dalai.clir;
 
-import de.dalai.clir.storage.Storage;
+import de.dalai.clir.tool.StorageHelper;
 import java.io.File;
 
 public class Clir {
 
-  public File clirDir;
+  public static File clirDir;
 
   public static void main(String[] args){
     Clir checker = new Clir();
@@ -13,7 +13,7 @@ public class Clir {
   }
 
   private void run(){
-    Storage storage = new Storage();
+    StorageHelper storage = new StorageHelper();
     clirDir = storage.getClirFolder();
   }
 }

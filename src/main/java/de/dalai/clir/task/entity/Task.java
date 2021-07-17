@@ -11,11 +11,16 @@ public class Task {
   private String uuid;
   private String creationDate;
   private String completionDate;
-  private String text;
+  private String description;
   private boolean finished;
 
   public String toJson(){
     Gson gson = new Gson();
     return gson.toJson(this);
+  }
+
+  public Task fromJson(String json){
+    Gson gson = new Gson();
+    return gson.fromJson(json, Task.class);
   }
 }
