@@ -2,21 +2,28 @@ package de.dalai.clir.task.controller;
 
 import de.dalai.clir.task.entity.Task;
 import de.dalai.clir.task.entity.TaskStorage;
+import de.dalai.clir.tool.TimeTool;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskManager {
 
-  public void addTask(String collection, Task task){
+  public int addTask(final String collection,final Task task){
     try {
       TaskStorage storage = TaskStorage.getInstance();
-      storage.addTask(collection, task);
+      task.setFinished(false);
+      task.setCreationDate(TimeTool.getLocalDateTime());
+      return storage.addTask(collection, task);
     }catch(Exception ex){
       throw new RuntimeException("Something went horribly wrong saving the task");
     }
   }
 
-  public List<Task> getAllOpenTasks(String collection){
+  public void getTask(final String collection, final String taskName){
+    //TODO
+  }
+
+  public List<Task> getAllOpenTasks(final String collection){
     final List<Task> taskCollection = getTasks(collection);
     List<Task> openTaskCollection = new ArrayList<>();
     for(Task task : taskCollection){
@@ -42,7 +49,7 @@ public class TaskManager {
     return tasks;
   }
 
-  public List<Task> getClosedTasks(String collection){
+  public List<Task> getClosedTasks(final String collection){
     List<Task> result = new ArrayList<>();
     final List<Task> tasks = getTasks(collection);
     for(Task task : tasks){
@@ -68,7 +75,7 @@ public class TaskManager {
     return result;
   }
 
-  public List<Task> getAllTasks(String collection){
+  public List<Task> getAllTasks(final String collection){
     return getTasks(collection);
   }
 
@@ -82,39 +89,71 @@ public class TaskManager {
     return result;
   }
 
-  public boolean getTask(String uuid){
+  public Task getTask(final int id){
+    TaskStorage storage = TaskStorage.getInstance();
+    final List<String> collections = storage.getCollections();
+    for(String collection : collections){
+      Task result = getTask(id, collection);
+      if( null != result){
+        return result;
+      }
+    }
+    return null;
+  }
+
+  public Task getTask(final int id, final String collection){
+    final List<Task> tasks = getTasks(collection);
+    if(id > tasks.size()-1){
+      throw new IllegalArgumentException();
+    }
+    return tasks.get(id);
+  }
+
+  public boolean reOpenTask(final int id, final String collection){
+    Task task = getTask(id, collection);
+    if(null != task){
+      task.setFinished(false);
+      return true;
+    }
+    return false;
+  }
+
+  public boolean reOpenTask(final int id){
+    final Task task = getTask(id);
+    if(null != task){
+      task.setFinished(false);
+      return true;
+    }
+    return false;
+  }
+
+  public boolean deleteTask(final String uuid){
     throw new UnsupportedOperationException();
   }
 
-  public boolean getTask(String uuid, String collection){
+  public boolean deleteTask(final String collection,final  String uuid){
     throw new UnsupportedOperationException();
   }
 
-  public boolean reOpenTask(String uuid, String collection){
-    throw new UnsupportedOperationException();
+  public boolean finishTask(final int id){
+    final Task task = getTask(id);
+    if(null != task){
+      task.setFinished(true);
+      return true;
+    }
+    return false;
   }
 
-  public boolean reOpenTask(String uuid){
-    throw new UnsupportedOperationException();
+  public boolean finishTask(final int id, final String collection){
+    final Task task = getTask(id, collection);
+    if(null != task){
+      task.setFinished(true);
+      return true;
+    }
+    return false;
   }
 
-  public boolean deleteTask(String uuid){
-    throw new UnsupportedOperationException();
-  }
-
-  public boolean deleteTask(String collection, String uuid){
-    throw new UnsupportedOperationException();
-  }
-
-  public boolean finishTask(String uuid){
-    throw new UnsupportedOperationException();
-  }
-
-  public boolean finishTask(String uuid, String collection){
-    throw new UnsupportedOperationException();
-  }
-
-  private List<Task> getTasks(String collection) {
+  private List<Task> getTasks(final String collection) {
     TaskStorage storage = TaskStorage.getInstance();
     final List<Task> taskCollection = storage.getTasksFromCollection(collection);
     return taskCollection;

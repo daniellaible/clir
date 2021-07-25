@@ -27,7 +27,7 @@ public class TaskStorageTest {
   }
 
   @Test
-  void testGetCollections() {
+  void getCollectionsTest() {
     TaskStorage storage = TaskStorage.getInstance();
     storage.cleanTaskStorage();
     List<String> collections = storage.getCollections();
@@ -43,7 +43,7 @@ public class TaskStorageTest {
   }
 
   @Test
-  void testGetTasksFromCollection() {
+  void getTasksFromCollectionTest() {
     TaskStorage storage = TaskStorage.getInstance();
     storage.cleanTaskStorage();
     final List<Task> test = storage.getTasksFromCollection("test");
@@ -51,7 +51,7 @@ public class TaskStorageTest {
   }
 
   @Test
-  void testSerialized() throws IOException {
+  void SerializedTest() throws IOException {
     assertTrue(true);
     TaskStorage storage = TaskStorage.getInstance();
     storage.cleanTaskStorage();
@@ -68,7 +68,6 @@ public class TaskStorageTest {
   Task buildTask(String desc, boolean finished){
     return Task.builder()
         .description(desc)
-        .uuid(UuidCreator.createUuid())
         .creationDate(TimeTool.getLocalDateTime())
         .finished(finished)
         .build();

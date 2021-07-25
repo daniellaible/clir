@@ -12,14 +12,14 @@ import org.junit.jupiter.api.Test;
 class TaskManagerTest {
 
   @Test
-  void testAddTask() {
+  void addTaskTest() {
     Task testTask = generateTask("testTask", false);
     TaskManager manager = new TaskManager();
     manager.addTask("test", testTask);
   }
 
   @Test
-  void testGetOpenTasksWithCollection() {
+  void getOpenTasksWithCollectionTest() {
     TaskStorage storgae = TaskStorage.getInstance();
     storgae.cleanTaskStorage();
 
@@ -37,7 +37,7 @@ class TaskManagerTest {
   }
 
   @Test
-  void testGetAllOpenTasks(){
+  void getAllOpenTasksTest(){
     TaskStorage storage = TaskStorage.getInstance();
     storage.cleanTaskStorage();
 
@@ -56,7 +56,7 @@ class TaskManagerTest {
   }
 
   @Test
-  void testGetClosedTasksOfCollection() {
+  void getClosedTasksOfCollectionTest() {
     TaskStorage storage = TaskStorage.getInstance();
     storage.cleanTaskStorage();
 
@@ -72,7 +72,7 @@ class TaskManagerTest {
   }
 
   @Test
-  void testGetClosedTasks(){
+  void getClosedTasksTest(){
     TaskStorage storage = TaskStorage.getInstance();
     storage.cleanTaskStorage();
 
@@ -93,7 +93,7 @@ class TaskManagerTest {
   }
 
   @Test
-  void testGetAllTasksOfCollection() {
+  void getAllTasksOfCollectionTest() {
     TaskStorage storage = TaskStorage.getInstance();
     storage.cleanTaskStorage();
 
@@ -108,7 +108,7 @@ class TaskManagerTest {
   }
 
   @Test
-  void testGetAllTasks(){
+  void getAllTasksTest(){
     TaskStorage storage = TaskStorage.getInstance();
     storage.cleanTaskStorage();
 
@@ -130,7 +130,6 @@ class TaskManagerTest {
   private Task generateTask(final String description, final boolean isFinished){
     return Task.builder()
         .creationDate(TimeTool.getLocalDateTime())
-        .uuid(UuidCreator.createUuid())
         .description(description)
         .finished(isFinished)
         .build();

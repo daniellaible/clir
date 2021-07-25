@@ -12,7 +12,6 @@ public class TaskResource {
         .creationDate(TimeTool.getLocalDateTime())
         .description(text)
         .finished(false)
-        .uuid(UuidCreator.createUuid())
         .build();
 
     TaskManager manager = new TaskManager();

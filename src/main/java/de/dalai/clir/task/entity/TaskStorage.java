@@ -18,11 +18,11 @@ public class TaskStorage {
   private static TaskStorage instance;
 
   private Gson gson;
-  private Map<String, Map<String,Task>> taskStorage;
+  private Map<String, List<Task>> taskStorage;
 
   private TaskStorage(){
-    this.gson = new Gson();
     taskStorage = new HashMap<>();
+    gson = new Gson();
   }
 
   public static TaskStorage getInstance(){
@@ -46,16 +46,11 @@ public class TaskStorage {
     Files.writeString(path, stringified);
   }
 
-  public void addTask(String collectionName, Task task){
-    final Map<String,Task> taskCollection = taskStorage.get(collectionName);
-    if(taskCollection == null){
-      Map<String, Task> newCollection = new HashMap<>();
-      newCollection.put(task.getUuid(), task);
-      taskStorage.put(collectionName, newCollection);
-    }else{
-      taskCollection.put(task.getUuid(), task);
-      taskStorage.put(collectionName,taskCollection);
-    }
+  public int addTask(String name, Task task){
+    List<Task> collection = getCollection(name);
+    task.setId(collection.size());
+    collection.add(task);
+    return task.getId();
   }
 
   public List<String> getCollections(){
@@ -66,14 +61,20 @@ public class TaskStorage {
     return collections;
   }
 
-  public List<Task> getTasksFromCollection(String collectionName){
-    List<Task> result = new ArrayList<>();
-    final Map<String, Task> stringTaskMap = taskStorage.get(collectionName);
-    if(null != stringTaskMap) {
-      for (String uuid : stringTaskMap.keySet()) {
-        result.add(stringTaskMap.get(uuid));
-      }
+  public List<Task> getTasksFromCollection(final String name){
+    return getCollection(name);
+  }
+
+  public List<Task> createCollection(final String name){
+    return taskStorage.put(name, new ArrayList<>());
+  }
+
+  private List<Task> getCollection(final String name){
+    List<Task>collection = taskStorage.get(name);
+    if(collection == null){
+      taskStorage.put(name, new ArrayList<>());
+      collection = taskStorage.get(name);
     }
-    return result;
+    return collection;
   }
 }
