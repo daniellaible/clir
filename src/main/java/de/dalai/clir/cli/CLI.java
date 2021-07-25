@@ -99,6 +99,8 @@ public class CLI {
        System.out.println("""
            Sorry, this command I don't know
            Please press h to get a list of all commands
+           
+           
            """);
      }
     }
