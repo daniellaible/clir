@@ -1,6 +1,8 @@
 package de.dalai.clir.cli;
 
 import de.dalai.clir.Clir;
+import de.dalai.clir.cli.help.MainHelp;
+import de.dalai.clir.cli.help.SubHelp;
 import de.dalai.clir.task.controller.CollectionManager;
 import de.dalai.clir.task.controller.TaskManager;
 import de.dalai.clir.task.entity.Task;
@@ -21,9 +23,9 @@ public class CLI {
   }
 
   private void startMainloop() {
-    boolean conti = true;
+    boolean continu = true;
     Scanner scanner = new Scanner(System.in);
-    while (conti) {
+    while (continu) {
       String line = scanner.nextLine();
       Matcher m = Pattern.compile("([^\"]\\S*|\".+?\")\\s*").matcher(line);
       List<String> commands = new ArrayList<>();
@@ -31,13 +33,15 @@ public class CLI {
         commands.add(m.group(1));
       }
      if (commands.get(0).equalsIgnoreCase("q") || commands.get(0).equalsIgnoreCase("quit")) {
-        conti = false;
+        continu = false;
 
       }else if(commands.get(0).equalsIgnoreCase("h") || commands.get(0).equalsIgnoreCase("help")){
         if(commands.size() == 1) {
-          printMainHelp();
+          MainHelp helper = new MainHelp();
+          helper.printMainHelp();
         }else if(commands.size() == 2){
-          printSubHelp(commands.get(1));
+          SubHelp subHelper = new SubHelp();
+          subHelper.printSubHelp(commands.get(1));
         }
       }else if(commands.get(0).equalsIgnoreCase("a") || commands.get(0).equalsIgnoreCase("add")) {
        if (commands.size() == 2) {
@@ -83,44 +87,21 @@ public class CLI {
              System.out.println(task.listOutputOpen());
            }
          }else{
-           System.out.println("There is no collection selected");
-           System.out.println("please select the current collection");
-           System.out.println("or use     task <collection>");
-           System.out.println("to display all available collections use    c | collection");
+           System.out.println("""
+               There is no collection selected
+               please select the current collection
+               or use     task <collection>
+               to display all available collections use    c | collection
+               """);
          }
        }
+     }else {
+       System.out.println("""
+           Sorry, this command I don't know
+           Please press h to get a list of all commands
+           """);
      }
     }
-  }
-
-  private void printSubHelp(String command) {
-    if(command.equalsIgnoreCase("h") || command.equalsIgnoreCase("help")){
-      System.out.println("Help page for: help|h");
-      System.out.println("    h | help  <command> prints the help message of command");
-    }
-    else if(command.equalsIgnoreCase("q") || command.equalsIgnoreCase("quit")){
-      System.out.println("Help page for:  quit|q");
-      System.out.println("    q | quit  ends the program without saving changes");
-    }
-    else if(command.equalsIgnoreCase("a") || command.equalsIgnoreCase("add")){
-      System.out.println("Help page for:  add|a");
-      System.out.println("    a | add  add a new task to a topic");
-      System.out.println("        a | add  <task> (in quotes) adds a new task to the current collection");
-      System.out.println("        a | add  <task> <collection> adds a new task to the selected collection");
-    }
-    else if(command.equalsIgnoreCase("c") || command.equalsIgnoreCase("collection")){
-      System.out.println("Help page for:  collection|c");
-      System.out.println("    c | collection  prints all available collections");
-    }
-  }
-
-  private void printMainHelp() {
-    System.out.println("Availabale commands are: ");
-    System.out.println("    a | add - adds a Task to a collection");
-    System.out.println("    c | collection - prints the content of the selected collection");
-    System.out.println("    h | help - prints help message");
-    System.out.println("    q | quit - ends clir without saving");
-    System.out.println("    t | task - prints all tasks of a collection");
   }
 
   private void writeInitMessage() {
@@ -140,5 +121,4 @@ public class CLI {
       }
     }
   }
-
 }
