@@ -2,9 +2,9 @@ package de.dalai.clir.cli.command.help;
 
 import java.util.List;
 
-public class Help {
+public class HelpCommand {
 
-  public Help(List<String> commands){
+  public HelpCommand(List<String> commands){
     helpFunctionality(commands);
   }
 

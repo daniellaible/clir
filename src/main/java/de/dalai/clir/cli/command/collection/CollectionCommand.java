@@ -3,9 +3,9 @@ package de.dalai.clir.cli.command.collection;
 import de.dalai.clir.task.controller.CollectionManager;
 import java.util.List;
 
-public class Collection {
+public class CollectionCommand {
 
-  public Collection(){
+  public CollectionCommand(){
     displayCollections();
   }
 

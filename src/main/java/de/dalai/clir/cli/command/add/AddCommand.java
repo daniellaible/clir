@@ -6,9 +6,9 @@ import de.dalai.clir.task.controller.TaskManager;
 import de.dalai.clir.task.entity.Task;
 import java.util.List;
 
-public class Add {
+public class AddCommand {
 
-  public Add(List<String> commands) {
+  public AddCommand(List<String> commands) {
     addFunctionality(commands);
   }
 
