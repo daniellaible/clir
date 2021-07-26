@@ -1,4 +1,4 @@
-package de.dalai.clir.cli.help;
+package de.dalai.clir.cli.command.help;
 
 public class MainHelp {
 
